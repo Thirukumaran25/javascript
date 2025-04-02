@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const question = { text: "What is the capital of France?",
+                        options: ["Berlin", "Madrid", "Paris", "Rome"],
+                        answer: "Paris" };
+        const userAnswer = prompt(`${question.text}\n1: ${question.options[0]}\n2: ${question.options[1]}\n3: ${question.options[2]}\n4: ${question.options[3]}\nSelect an answer (1-4):`);
+        const isCorrect = question.options[userAnswer - 1] === question.answer;
+        console.log(`Your answer: ${question.options[userAnswer - 1]}, Correct: ${question.answer}, Status: ${isCorrect ? "Correct" : "Incorrect"}`);
+    </script>
+</body>
+</html>
