@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let groceryList = [];
+
+        function addItem(item) { groceryList.push(item); }
+        function removeItem(item) { groceryList = groceryList.filter(i => i !== item); }
+        function viewItems() { console.log("Grocery List:", groceryList.length ? groceryList.join(", ") : "Empty"); }
+
+        addItem(prompt("Enter an item to add:"));
+        viewItems();
+        removeItem(prompt("Enter an item to remove:"));
+        viewItems();
+    </script>
+</body>
+</html>
