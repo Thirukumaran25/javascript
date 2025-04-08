@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let inventory = [
+            { name: "Apple", quantity: 10 },
+            { name: "Banana", quantity: 20 },
+            { name: "Orange", quantity: 15 }
+            ];
+
+        function displayInventory() {
+            console.log("Current Inventory:");
+            inventory.forEach(product => {
+                console.log(`${product.name}: ${product.quantity}`);
+            });
+        }
+
+        function addProduct(productName, quantity) {
+            
+            let product = inventory.find(item => item.name === productName);
+            if (product) {
+            
+                product.quantity += quantity;
+            } else {
+            
+                inventory.push({ name: productName, quantity: quantity });
+            }
+            displayInventory();
+        }
+
+        function removeProduct(productName) {
+  
+            const index = inventory.findIndex(item => item.name === productName);
+            if (index !== -1) {
+            
+                inventory.splice(index, 1);
+                console.log(`${productName} has been removed from the inventory.`);
+            } else {
+                console.log(`${productName} not found in the inventory.`);
+            }
+            displayInventory();
+        }
+
+        displayInventory(); 
+        addProduct("Grapes", 25); 
+        addProduct("Apple", 5); 
+        removeProduct("Banana");
+        removeProduct("Mango");
+    </script>
+</body>
+</html>
