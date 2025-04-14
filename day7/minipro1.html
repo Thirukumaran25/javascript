@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function Employee(name, position, salary) {
+    this.name = name;
+    this.position = position;
+    this.salary = salary;
+}
+
+Employee.prototype.increaseSalary = function(amount) {
+    this.salary += amount;
+    console.log(`New salary for ${this.name}: $${this.salary.toFixed(2)}`);
+};
+
+const EmployeeManagementSystem = (function() {
+    const employees = []; 
+
+    return {
+        addEmployee: function(name, position, salary) {
+            const employee = new Employee(name, position, salary);
+            employees.push(employee);
+            console.log(`Added employee: ${name}`);
+        },
+
+        displayEmployees: function() {
+            console.log('Employee Records:');
+            console.table(employees);
+        },
+
+        increaseEmployeeSalary: function(name, amount) {
+            const employee = employees.find(emp => emp.name === name);
+            if (employee) {
+                employee.increaseSalary(amount);
+            } else {
+                console.log(`Employee not found: ${name}`);
+            }
+        }
+    };
+})();
+
+EmployeeManagementSystem.addEmployee('Alice', 'Developer', 70000);
+EmployeeManagementSystem.addEmployee('Bob', 'Designer', 60000);
+EmployeeManagementSystem.addEmployee('Charlie', 'Manager', 80000);
+
+EmployeeManagementSystem.displayEmployees();
+
+EmployeeManagementSystem.increaseEmployeeSalary('Alice', 5000);
+EmployeeManagementSystem.increaseEmployeeSalary('Bob', 3000);
+
+EmployeeManagementSystem.displayEmployees();
+    </script>
+</body>
+</html>
