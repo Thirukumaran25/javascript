@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function generateUsername(firstName, lastName) {
+   
+    const firstPart = firstName.slice(0, 3).toLowerCase();
+    const lastPart = lastName.slice(0, 3).toLowerCase();
+
+    const randomNumber = Math.floor(Math.random() * (999 - 100 + 1)) + 100;
+
+    const username = `${firstPart}${lastPart}${randomNumber}`;
+
+    console.log(`Generated Username: ${username}`);
+}
+
+const firstName = ("Robin");
+const lastName = ("Wood");
+generateUsername(firstName, lastName);
+    </script>
+</body>
+</html>

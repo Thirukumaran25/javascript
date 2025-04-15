@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function isPalindrome(input) {
+    const cleanedInput = input.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    const reversedInput = cleanedInput.split('').reverse().join('');
+    
+    if (cleanedInput === reversedInput) {
+        console.log("Palindrome");
+    } else {
+        console.log("Not a Palindrome");
+    }
+}
+
+const userInput = prompt("Enter a word or sentence:");
+isPalindrome(userInput);  
+    </script>
+</body>
+</html>
