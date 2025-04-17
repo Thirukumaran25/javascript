@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Border on Hover</title>
+    <style>
+        img {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hover Over the Image</h1>
+    <img id="myImage" src="/images/python fullstack developer.jpg" alt="Placeholder Image">
+
+    <script>
+        const image = document.getElementById('myImage');
+
+        image.addEventListener('mouseover', function() {
+            image.style.border = '5px solid blue'; 
+        });
+    </script>
+
+</body>
+</html>

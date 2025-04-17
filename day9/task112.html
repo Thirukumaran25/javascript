@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="para">click here to change background</p>
+    <p>color change for para using quary selector</p>
+    <button id="changecolor" onclick="change()">click me</button>
+<script>
+    
+    function change(){
+        document.querySelectorAll("p").forEach(p => p.style.color = 'blue');
+    }
+</script>
+</body>
+</html>

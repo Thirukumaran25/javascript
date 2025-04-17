@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="title">Hello, DOM!</h1>
+    <p class="description">This is a appendChild example.</p>
+<script>
+    let newPara = document.createElement("p");
+     newPara.innerText = "This is a new paragraph!"; 
+     document.body.appendChild(newPara);
+     let newPara2 = document.createElement("p");
+     newPara2.innerText = "This is a new paragraph2!"; 
+     document.body.appendChild(newPara2);
+</script>
+</body>
+</html>

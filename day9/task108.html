@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Visibility</title>
+    <style>
+        #toggleElement {
+            padding: 20px;
+            background-color: lightblue;
+            margin: 20px 0;
+            display: block; /* Initially visible */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Toggle Visibility</h1>
+    <button id="toggleButton" onclick="toggleVisibility()">click me</button>
+    
+    <div id="toggleElement">
+        This is the element that will be toggled.
+    </div>
+
+    <script>
+        function toggleVisibility() {
+            const element = document.getElementById('toggleElement');
+            if (element.style.display === 'none') {
+                element.style.display = 'block'; 
+            } else {
+                element.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
