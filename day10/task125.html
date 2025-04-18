@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prevent Form Submission</title>
+</head>
+<body>
+
+    <h1>Prevent Form Submission Example</h1>
+    <form id="myForm">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message" style="margin-top: 20px;"></div>
+
+    <script>
+        const form = document.getElementById('myForm');
+        const messageDisplay = document.getElementById('message');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            messageDisplay.textContent = `Hello, ${name}! Your form was submitted successfully.`;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Disappear on Click</title>
+</head>
+<body>
+
+    <h1>Click the Button to Make It Disappear</h1>
+    <button id="disappearButton">Click Me!</button>
+
+    <script>
+        const disappearButton = document.getElementById('disappearButton');
+        disappearButton.addEventListener('click', function() {
+            disappearButton.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

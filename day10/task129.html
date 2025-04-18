@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Sound on Button Click</title>
+</head>
+<body>
+
+    <h1>Play Sound Example</h1>
+    <button id="playSoundButton">Play Sound</button>
+
+    <audio id="sound" src="/audio/happy-birthday-254480.mp3"></audio>
+
+    <script>
+        const playSoundButton = document.getElementById('playSoundButton');
+        const sound = document.getElementById('sound');
+
+        playSoundButton.addEventListener('click', function() {
+            sound.play();
+        });
+    </script>
+
+</body>
+</html>

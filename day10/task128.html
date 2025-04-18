@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Element Visibility</title>
+</head>
+<body>
+
+    <h1>Toggle Visibility Example</h1>
+    <button id="toggleButton">Show Text</button>
+    <p id="toggleText">This is the text that can be toggled!</p>
+
+    <script>
+        const toggleButton = document.getElementById('toggleButton');
+        const toggleText = document.getElementById('toggleText');
+        toggleButton.addEventListener('click', function() {
+            if (toggleText.style.display === 'none' || toggleText.style.display === '') {
+                toggleText.style.display = 'block';
+                toggleButton.textContent = 'Hide Text';
+            } else {
+                toggleText.style.display = 'none';
+                toggleButton.textContent = 'Show Text';
+            }
+        });
+    </script>
+
+</body>
+</html>

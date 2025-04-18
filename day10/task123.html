@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>enter username and password</h1>
+    <input type="password" id="pswd">
+    <button  id="btn">show</button>
+
+  <script>
+    const input1=document.getElementById("pswd")
+    const input2=document.getElementById("btn")
+
+    btn.addEventListener("click",function(){
+        if(input1.type==="password"){
+            input1.type="text"
+            input2.textContent="hide"
+        }else{
+            input1.type="password"
+            input2.textContent="show"
+        }
+    });
+  </script>
+     
+</body>
+</html>

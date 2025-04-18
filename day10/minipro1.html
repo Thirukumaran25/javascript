@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter App</title>
+</head>
+<body>
+
+    <h1>Click Counter App</h1>
+    <button id="clickButton">Click Me!</button>
+    <button id="resetButton">Reset</button>
+    <div id="countDisplay">Count: 0</div>
+
+    <script>
+        let clickCount = 0;
+
+        const clickButton = document.getElementById('clickButton');
+        const resetButton = document.getElementById('resetButton');
+        const countDisplay = document.getElementById('countDisplay');
+
+        clickButton.addEventListener('click', function() {
+            clickCount++;
+            countDisplay.textContent = `Count: ${clickCount}`;
+        });
+
+        resetButton.addEventListener('click', function() {
+            clickCount = 0;
+            countDisplay.textContent = `Count: ${clickCount}`;
+        });
+    </script>
+
+</body>
+</html>

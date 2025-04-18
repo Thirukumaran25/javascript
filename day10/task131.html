@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Image on Button Click</title>
+   
+</head>
+<body>
+
+    <h1>Change Image Example</h1>
+    <img id="image" src="/images/python fullstack developer.jpg" alt="Image" />
+    <br>
+    <button id="changeImageButton">Change Image</button>
+
+    <script>
+        const image = document.getElementById('image');
+        const changeImageButton = document.getElementById('changeImageButton');
+
+        const image1 = 'image1.jpg'; 
+        const image2 = '/images/vetriman.jpg'; 
+
+        changeImageButton.addEventListener('click', function() {
+            if (image.src.includes(image1)) {
+                image.src = image2; 
+            } else {
+                image.src = image1;
+            }
+        });
+    </script>
+
+</body>
+</html>
