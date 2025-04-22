@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .item {
+            margin: 10px 0;
+        }
+        .cart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <div class="items">
+        <div class="item">
+            <span>Item 1</span>
+            <button class="add-to-cart" data-item="Item 1">Add to Cart</button>
+        </div>
+        <div class="item">
+            <span>Item 2</span>
+            <button class="add-to-cart" data-item="Item 2">Add to Cart</button>
+        </div>
+        <div class="item">
+            <span>Item 3</span>
+            <button class="add-to-cart" data-item="Item 3">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>Cart Items</h2>
+        <ul id="cart-items"></ul>
+    </div>
+
+    <script>
+        function loadCart() {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartList = document.getElementById('cart-items');
+            cartList.innerHTML = '';
+            cartItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                cartList.appendChild(li);
+            });
+        }
+        function addToCart(item) {
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItems.push(item);
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+            loadCart();
+        }
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.getAttribute('data-item');
+                addToCart(item);
+            });
+        });
+        loadCart();
+    </script>
+</body>
+</html>

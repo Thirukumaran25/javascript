@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz System</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <div id="quiz-container"></div>
+    <button id="submit-button">Submit Answers</button>
+    <div class="result" id="result-message" style="display: none;"></div>
+
+    <script>
+        const quizQuestions = [
+            {
+                question: "What is the capital of France?",
+                options: ["Berlin", "Madrid", "Paris", "Lisbon"],
+                answer: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["Earth", "Mars", "Jupiter", "Saturn"],
+                answer: "Mars"
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                answer: "Pacific Ocean"
+            }
+        ];
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
+
+                q.options.forEach(option => {
+                    const optionInput = document.createElement('input');
+                    optionInput.type = 'radio';
+                    optionInput.name = `question${index}`;
+                    optionInput.value = option;
+                    optionInput.id = `q${index}-${option}`;
+                    
+                    const savedAnswers = JSON.parse(sessionStorage.getItem('quizAnswers')) || {};
+                    if (savedAnswers[`question${index}`] === option) {
+                        optionInput.checked = true;
+                    }
+
+                    const label = document.createElement('label');
+                    label.htmlFor = `q${index}-${option}`;
+                    label.textContent = option;
+
+                    questionDiv.appendChild(optionInput);
+                    questionDiv.appendChild(label);
+                    questionDiv.appendChild(document.createElement('br'));
+                });
+
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+        function saveAnswers() {
+            const answers = {};
+            quizQuestions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    answers[`question${index}`] = selectedOption.value;
+                }
+            });
+            sessionStorage.setItem('quizAnswers', JSON.stringify(answers));
+        }
+        function submitAnswers() {
+            saveAnswers();
+            const savedAnswers = JSON.parse(sessionStorage.getItem('quizAnswers')) || {};
+            let score = 0;
+
+            quizQuestions.forEach((q, index) => {
+                if (savedAnswers[`question${index}`] === q.answer) {
+                    score++;
+                }
+            });
+
+            const resultMessage = document.getElementById('result-message');
+            resultMessage.textContent = `You scored ${score} out of ${quizQuestions.length}.`;
+            resultMessage.style.display = 'block';
+        }
+        window.onload = loadQuiz;
+        document.getElementById('submit-button').addEventListener('click', submitAnswers);
+    </script>
+</body>
+</html>

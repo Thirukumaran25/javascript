@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        img {
+            width: 30%;
+            display: none; /* Hide all images initially */
+        }
+        .active {
+            display: block; /* Show the active image */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Image Slider</h1>
+    <div id="slider">
+        <img class="active" src="/images/python fullstack developer.jpg" alt="Image 1" />
+        <img src="/images/vetrilogo.png" alt="Image 2" />
+        <img src="/images/vetriman.jpg" alt="Image 3" />
+    </div>
+    <button onclick="prevImage()">Previous</button>
+    <button onclick="nextImage()">Next</button>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('#slider img');
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length; // Loop back to the first image
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length; // Loop to the last image
+            showImage(currentIndex);
+        }
+        showImage(currentIndex);
+    </script>
+
+</body>
+</html>

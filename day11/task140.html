@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Object as JSON</title>
+</head>
+<body>
+    <h1>Store Object as JSON</h1>
+    <button id="store-button">Store Object</button>
+    <button id="retrieve-button">Retrieve Object</button>
+    <pre id="output"></pre>
+
+    <script>
+        const user = {
+            name: "John Doe",
+            age: 30,
+            email: "john.doe@example.com",
+            hobbies: ["reading", "traveling", "coding"]
+        };
+        function storeObject() {
+            const jsonString = JSON.stringify(user); 
+            localStorage.setItem('user', jsonString);
+            alert('Object stored in LocalStorage!');
+        }
+        function retrieveObject() {
+            const jsonString = localStorage.getItem('user');
+            if (jsonString) {
+                const userObject = JSON.parse(jsonString);
+                document.getElementById('output').textContent = JSON.stringify(userObject, null, 2);
+            } else {
+                document.getElementById('output').textContent = 'No object found in LocalStorage.';
+            }
+        }
+        document.getElementById('store-button').addEventListener('click', storeObject);
+        document.getElementById('retrieve-button').addEventListener('click', retrieveObject);
+    </script>
+</body>
+</html>

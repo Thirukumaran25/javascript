@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter</title>
+</head>
+<body>
+    <h1>Click Counter</h1>
+    <p>You have clicked the button <span id="click-count">0</span> times.</p>
+    <button id="click-button">Click Me!</button>
+
+    <script>
+        function loadClickCount() {
+            const count = localStorage.getItem('clickCount');
+            return count ? parseInt(count, 10) : 0; // Return 0 if no count is found
+        }
+        function updateClickCountDisplay(count) {
+            document.getElementById('click-count').textContent = count;
+        }
+        function handleButtonClick() {
+            let count = loadClickCount();
+            count++;
+            localStorage.setItem('clickCount', count);
+            updateClickCountDisplay(count);
+        }
+        const initialCount = loadClickCount();
+        updateClickCountDisplay(initialCount);
+        document.getElementById('click-button').addEventListener('click', handleButtonClick);
+    </script>
+</body>
+</html>

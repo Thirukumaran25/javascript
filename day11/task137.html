@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Visited Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        a {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Last Visited Page Tracker</h1>
+    <p>Click on the links below to navigate:</p>
+    <a href="page1.html">Page 1</a>
+    <a href="page2.html">Page 2</a>
+    <a href="page3.html">Page 3</a>
+
+    <div id="last-visited" style="margin-top: 20px;"></div>
+
+    <script>
+        function storeLastVisitedPage() {
+            const currentPage = window.location.href;
+            localStorage.setItem('lastVisitedPage', currentPage);
+        }
+        function displayLastVisitedPage() {
+            const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+            if (lastVisitedPage) {
+                const lastVisitedDiv = document.getElementById('last-visited');
+                lastVisitedDiv.innerHTML = `<strong>Last Visited Page:</strong> <a href="${lastVisitedPage}">${lastVisitedPage}</a>`;
+            }
+        }
+        window.addEventListener('beforeunload', storeLastVisitedPage);
+        window.onload = displayLastVisitedPage;
+    </script>
+</body>
+</html>

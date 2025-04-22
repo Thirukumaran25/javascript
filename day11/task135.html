@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session-Based Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Session-Based Login</h1>
+    <div id="login-form" class="hidden">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter username" />
+        <button id="login-button">Login</button>
+    </div>
+    <div id="welcome-message" class="hidden">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <button id="logout-button">Logout</button>
+    </div>
+
+    <script>
+        function checkLoginStatus() {
+            const username = sessionStorage.getItem('username');
+            if (username) {
+                showWelcomeMessage(username);
+            } else {
+                showLoginForm();
+            }
+        }
+        function showLoginForm() {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('welcome-message').classList.add('hidden');
+        }
+        function showWelcomeMessage(username) {
+            document.getElementById('user-name').textContent = username;
+            document.getElementById('welcome-message').classList.remove('hidden');
+            document.getElementById('login-form').classList.add('hidden');
+        }
+        document.getElementById('login-button').addEventListener('click', () => {
+            const username = document.getElementById('username').value;
+            if (username) {
+                sessionStorage.setItem('username', username);
+                showWelcomeMessage(username);
+            }
+        });
+        document.getElementById('logout-button').addEventListener('click', () => {
+            sessionStorage.removeItem('username');
+            showLoginForm();
+        });
+        checkLoginStatus();
+    </script>
+</body>
+</html>

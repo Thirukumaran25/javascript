@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <h1>Stopwatch</h1>
+    <div id="time">00:00:00</div>
+    <button id="start-button">Start</button>
+    <button id="stop-button">Stop</button>
+    <button id="reset-button">Reset</button>
+
+    <script>
+        let timerInterval;
+        let startTime;
+        let elapsedTime = 0;
+        function formatTime(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const seconds = String(totalSeconds % 60).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+        function updateTimer() {
+            const currentTime = Date.now();
+            elapsedTime = currentTime - startTime + (parseInt(sessionStorage.getItem('elapsedTime')) || 0);
+            document.getElementById('time').textContent = formatTime(elapsedTime);
+        }
+        function startTimer() {
+            if (!timerInterval) {
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
+                sessionStorage.setItem('startTime', startTime);
+            }
+        }
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            sessionStorage.setItem('elapsedTime', elapsedTime);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            elapsedTime = 0;
+            sessionStorage.removeItem('elapsedTime');
+            sessionStorage.removeItem('startTime');
+            document.getElementById('time').textContent = formatTime(elapsedTime);
+        }
+        window.onload = function() {
+            const savedStartTime = sessionStorage.getItem('startTime');
+            if (savedStartTime) {
+                startTime = parseInt(savedStartTime);
+                elapsedTime = parseInt(sessionStorage.getItem('elapsedTime')) || 0;
+                updateTimer();
+                startTimer(); 
+            }
+        };
+        document.getElementById('start-button').addEventListener('click', startTimer);
+        document.getElementById('stop-button').addEventListener('click', stopTimer);
+        document.getElementById('reset-button').addEventListener('click', resetTimer);
+    </script>
+</body>
+</html>

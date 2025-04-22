@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input with SessionStorage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Save Form Input Temporarily</h1>
+    <form id="myForm">
+        <input type="text" id="name" placeholder="Enter your name" />
+        <input type="email" id="email" placeholder="Enter your email" />
+        <input type="text" id="message" placeholder="Enter your message" />
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function saveInputValues() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            sessionStorage.setItem('name', name);
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('message', message);
+        }
+        function restoreInputValues() {
+            const name = sessionStorage.getItem('name');
+            const email = sessionStorage.getItem('email');
+            const message = sessionStorage.getItem('message');
+
+            if (name) document.getElementById('name').value = name;
+            if (email) document.getElementById('email').value = email;
+            if (message) document.getElementById('message').value = message;
+        }
+        document.getElementById('myForm').addEventListener('input', saveInputValues);
+        window.onload = restoreInputValues;
+    </script>
+</body>
+</html>

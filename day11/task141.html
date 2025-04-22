@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert JSON String to Object</title>
+</head>
+<body>
+    <h1>Convert JSON String to Object</h1>
+    <button id="store-button">Store JSON String</button>
+    <button id="retrieve-button">Retrieve and Use Object</button>
+    <pre id="output"></pre>
+
+    <script>
+        const jsonString = '{"name": "Jane Doe", "age": 25, "email": "jane.doe@example.com", "hobbies": ["painting", "hiking", "music"]}';
+        function storeJsonString() {
+            localStorage.setItem('userJson', jsonString);
+            alert('JSON string stored in LocalStorage!');
+        }
+        function retrieveAndUseObject() {
+            const storedJsonString = localStorage.getItem('userJson');
+            if (storedJsonString) {
+                const userObject = JSON.parse(storedJsonString);
+                document.getElementById('output').textContent = `Name: ${userObject.name}\nAge: ${userObject.age}\nEmail: ${userObject.email}\nHobbies: ${userObject.hobbies.join(', ')}`;
+            } else {
+                document.getElementById('output').textContent = 'No JSON string found in LocalStorage.';
+            }
+        }
+        document.getElementById('store-button').addEventListener('click', storeJsonString);
+        document.getElementById('retrieve-button').addEventListener('click', retrieveAndUseObject);
+    </script>
+</body>
+</html>
