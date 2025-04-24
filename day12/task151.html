@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const people = [
+            { id: 1, name: 'Alice', age: 25 },
+            { id: 2, name: 'Bob', age: 30 },
+            { id: 3, name: 'Charlie', age: 35 }
+        ];
+        function updateAgeById(id, newAge) {
+            people = people.map(person => 
+                person.id === id ? { ...person, age: newAge } : person
+            );
+        }
+
+        updateAgeById(2, 32);
+
+        console.log(people);
+    </script>
+</body>
+</html>

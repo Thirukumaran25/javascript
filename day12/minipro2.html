@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Book Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .book {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Library Book Management System</h1>
+
+    <h2>Add Book</h2>
+    <input type="number" id="bookId" placeholder="Book ID" required />
+    <input type="text" id="bookTitle" placeholder="Title" required />
+    <input type="text" id="bookAuthor" placeholder="Author" required />
+    <input type="text" id="bookGenre" placeholder="Genre" required />
+    <button id="addBookBtn">Add Book</button>
+
+    <h2>Search Books</h2>
+    <input type="text" id="searchTerm" placeholder="Title, Author, or Genre" required />
+    <button id="searchBooksBtn">Search</button>
+    <div id="searchResults"></div>
+
+    <h2>Borrow Book</h2>
+    <input type="number" id="borrowBookId" placeholder="Book ID" required />
+    <input type="text" id="borrowerName" placeholder="Borrower Name" required />
+    <button id="borrowBookBtn">Borrow Book</button>
+    <div id="borrowResult"></div>
+
+    <h2>Return Book</h2>
+    <input type="number" id="returnBookId" placeholder="Book ID" required />
+    <button id="returnBookBtn">Return Book</button>
+    <div id="returnResult"></div>
+
+    <h2>Available Books</h2>
+    <button id="listAvailableBooksBtn">List Available Books</button>
+    <div id="availableBooks"></div>
+
+    <script>
+        class Book {
+            constructor(id, title, author, genre) {
+                this.id = id;
+                this.title = title;
+                this.author = author;
+                this.genre = genre;
+                this.available = true;
+                this.borrower = null;
+            }
+        }
+
+        class Library {
+            constructor() {
+                this.books = [];
+            }
+
+            addBook(book) {
+                this.books.push(book);
+            }
+
+            searchBooks(term) {
+                return this.books.filter(book => 
+                    book.title.toLowerCase().includes(term.toLowerCase()) ||
+                    book.author.toLowerCase().includes(term.toLowerCase()) ||
+                    book.genre.toLowerCase().includes(term.toLowerCase())
+                );
+            }
+
+            borrowBook(bookId, borrowerName) {
+                const book = this.books.find(book => book.id === bookId);
+                if (book && book.available) {
+                    book.available = false;
+                    book.borrower = borrowerName;
+                    return `Book "${book.title}" borrowed by ${borrowerName}.`;
+                } else {
+                    return "Book not available for borrowing.";
+                }
+            }
+
+            returnBook(bookId) {
+                const book = this.books.find(book => book.id === bookId);
+                if (book && !book.available) {
+                    book.available = true;
+                    book.borrower = null;
+                    return `Book "${book.title}" returned successfully.`;
+                } else {
+                    return "Book not found or already available.";
+                }
+            }
+
+
+            listAvailableBooks() {
+                return this.books.filter(book => book.available);
+            }
+        }
+
+        const library = new Library();
+
+      
+        document.getElementById('addBookBtn').addEventListener('click', () => {
+            const id = parseInt(document.getElementById('bookId').value);
+            const title = document.getElementById('bookTitle').value;
+            const author = document.getElementById('bookAuthor').value;
+            const genre = document.getElementById('bookGenre').value;
+            const newBook = new Book(id, title, author, genre);
+    library.addBook(newBook);
+    alert(`Book "${title}" added to the library.`);
+});
+
+document.getElementById('searchBooksBtn').addEventListener('click', () => {
+    const term = document.getElementById('searchTerm').value;
+    const results = library.searchBooks(term);
+    const searchResultsDiv = document.getElementById('searchResults');
+    searchResultsDiv.innerHTML = ''; // Clear previous results
+    if (results.length > 0) {
+        results.forEach(book => {
+            const bookDiv = document.createElement('div');
+            bookDiv.className = 'book';
+            bookDiv.textContent = `${book.title} by ${book.author} (Genre: ${book.genre}) - ${book.available ? 'Available' : 'Not Available'}`;
+            searchResultsDiv.appendChild(bookDiv);
+        });
+    } else {
+        searchResultsDiv.textContent = "No books found.";
+    }
+});
+
+document.getElementById('borrowBookBtn').addEventListener('click', () => {
+    const bookId = parseInt(document.getElementById('borrowBookId').value);
+    const borrowerName = document.getElementById('borrowerName').value;
+    const borrowResult = library.borrowBook(bookId, borrowerName);
+    document.getElementById('borrowResult').textContent = borrowResult;
+});
+
+document.getElementById('returnBookBtn').addEventListener('click', () => {
+    const bookId = parseInt(document.getElementById('returnBookId').value);
+    const returnResult = library.returnBook(bookId);
+    document.getElementById('returnResult').textContent = returnResult;
+});

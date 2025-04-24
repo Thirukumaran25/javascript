@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .product {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inventory Management System</h1>
+
+    <h2>Add Product</h2>
+    <input type="number" id="productId" placeholder="Product ID" required />
+    <input type="text" id="productName" placeholder="Product Name" required />
+    <input type="text" id="productCategory" placeholder="Category" required />
+    <input type="number" id="productQuantity" placeholder="Quantity" required />
+    <input type="number" id="productPrice" placeholder="Price" required />
+    <button id="addProductBtn">Add Product</button>
+
+    <h2>Check Stock Availability</h2>
+    <input type="text" id="searchTerm" placeholder="Product ID or Name" required />
+    <button id="checkStockBtn">Check Stock</button>
+    <div id="stockResult"></div>
+
+    <h2>Update Inventory</h2>
+    <input type="number" id="updateProductId" placeholder="Product ID" required />
+    <input type="number" id="updateQuantity" placeholder="Quantity to Add/Remove" required />
+    <button id="updateInventoryBtn">Update Inventory</button>
+    <div id="updateResult"></div>
+
+    <h2>Total Inventory Value</h2>
+    <button id="calculateValueBtn">Calculate Total Value</button>
+    <div id="totalValueResult"></div>
+
+    <script>
+        class Product {
+            constructor(id, name, category, quantity, price) {
+                this.id = id;
+                this.name = name;
+                this.category = category;
+                this.quantity = quantity;
+                this.price = price;
+            }
+        }
+
+        class Inventory {
+            constructor() {
+                this.products = [];
+            }
+            addProduct(product) {
+                this.products.push(product);
+            }
+
+            checkStockAvailability(searchTerm) {
+                const product = this.products.find((product) => product.id === searchTerm || product.name.toLowerCase() === searchTerm.toLowerCase());
+                if (product) {
+                    return `Product ${product.name} is available in stock. Quantity: ${product.quantity}`;
+                } else {
+                    return "Product not found in stock.";
+                }
+            }
+            updateInventory(productId, quantity) {
+                const product = this.products.find((product) => product.id === productId);
+                if (product) {
+                    product.quantity += quantity;
+                    if (product.quantity < 0) {
+                        product.quantity = 0;
+                    }
+                    return `Inventory updated. New quantity of ${product.name}: ${product.quantity}`;
+                } else {
+                    return "Product not found in stock.";
+                }
+            }
+            calculateTotalInventoryValue() {
+                const totalValue = this.products.reduce((total, product) => total + (product.quantity * product.price), 0);
+                return `Total inventory value: $${totalValue.toFixed(2)}`;
+            }
+        }
+        const inventory = new Inventory();
+        document.getElementById('addProductBtn').addEventListener('click', () => {
+            const id = parseInt(document.getElementById('productId').value);
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const quantity = parseInt(document.getElementById('productQuantity').value);
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const newProduct = new Product(id, name, category, quantity, price);
+            inventory.addProduct(newProduct);
+            alert(`Product ${name} added to inventory.`);
+        });

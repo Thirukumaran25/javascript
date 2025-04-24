@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const people = [
+        { id: 1, name: 'Alice', age: 25 },
+        { id: 2, name: 'Bob', age: 30 },
+        { id: 3, name: 'Charlie', age: 35 },
+        { id: 4, name: 'David', age: 30 }
+    ];
+
+    const countAged30 = people.reduce((count, person) => {
+        return person.age === 30 ? count + 1 : count;
+    }, 0);
+
+    console.log(countAged30);
+    </script>
+</body>
+</html>

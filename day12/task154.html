@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const people = [
+            { id: 1, name: 'Alice', age: 25 },
+            { id: 2, name: 'Bob', age: 30 },
+            { id: 3, name: 'Charlie', age: 25 },
+            { id: 4, name: 'David', age: 30 },
+            { id: 5, name: 'Eve', age: 35 }
+        ];
+
+        function groupByProperty(array, property) {
+            return array.reduce((accumulator, current) => {
+                const key = current[property];
+
+                
+                if (!accumulator[key]) {
+                    accumulator[key] = [];
+                }
+                accumulator[key].push(current);
+                return accumulator;
+            }, {});
+        }
+
+        const groupedByAge = groupByProperty(people, 'age');
+
+        console.log(groupedByAge);
+    </script>
+</body>
+</html>

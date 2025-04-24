@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Search</title>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Search by name" />
+    <ul id="resultsList"></ul>
+
+    <script>
+        const people = [
+            { id: 1, name: 'Alice', age: 25 },
+            { id: 2, name: 'Bob', age: 30 },
+            { id: 3, name: 'Charlie', age: 35 },
+            { id: 4, name: 'David', age: 30 }
+        ];
+
+        function searchByName(searchTerm) {
+            const lowerCaseTerm = searchTerm.toLowerCase();
+            return people.filter(person => 
+                person.name.toLowerCase().includes(lowerCaseTerm)
+            );
+        }
+
+        function displayResults(results) {
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = '';
+
+            results.forEach(person => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${person.name} (Age: ${person.age})`;
+                resultsList.appendChild(listItem);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (event) => {
+            const searchTerm = event.target.value;
+            const results = searchByName(searchTerm);
+            displayResults(results);
+        });
+    </script>
+</body>
+</html>
