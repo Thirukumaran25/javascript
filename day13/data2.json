@@ -1,0 +1,33 @@
+[
+    {
+        "title":" bahubali",
+        "year":"2020",
+        "plot":"drama"
+    },
+    {
+        "title":"kgf",
+        "year":"2021",
+        "plot":"drama"
+    },
+    {
+        "title":"three",
+        "poster":"2015",
+        "plot":"romance"
+    },
+
+    {
+        "title":"avangers",
+        "year":"2010",
+        "plot":"horror"
+    },
+    {
+        "title":"ironman",
+        "year":"2018",
+        "plot":"horror"
+    },
+    {
+        "title":"mr.been",
+        "year":"2016",
+        "plot":"comedy"
+    } 
+]

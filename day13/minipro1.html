@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Product Catalog</title>
+</head>
+<body>
+    <h1>Product Catalog</h1>
+    <label for="priceFilter">Filter by price (below $):</label>
+    <input type="number" id="priceFilter" placeholder="Enter max price">
+    <button id="filterBtn">Filter</button>
+    <button id="sortBtn">Sort by Price (Low to High)</button>
+    <div id="productList"></div>
+    <div id="productDetails" class="product-details"></div>
+
+    <script>
+        let products = [];
+        function fetchProducts() {
+            fetch('/day13/data.json')
+                .then(response => response.json())
+                .then(data => {
+                    products = data;
+                    displayProducts(products);
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        }
+        function displayProducts(productsToDisplay) {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = '';
+
+            productsToDisplay.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `<strong>${product.name}</strong><br>Price: $${product.price}<br>Category: ${product.category}`;
+                productDiv.onclick = () => showProductDetails(product);
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function showProductDetails(product) {
+            const productDetails = document.getElementById('productDetails');
+            productDetails.innerHTML = `<h2>${product.name}</h2><p>Price: $${product.price}</p><p>Category: ${product.category}</p>`;
+            productDetails.style.display = 'block';
+        }
+
+        function filterProducts() {
+            const maxPrice = parseFloat(document.getElementById('priceFilter').value);
+            const filteredProducts = products.filter(product => product.price < maxPrice);
+            displayProducts(filteredProducts);
+        }
+        function sortProducts() {
+            const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+            displayProducts(sortedProducts);
+        }
+
+        document.getElementById('filterBtn').addEventListener('click', filterProducts);
+        document.getElementById('sortBtn').addEventListener('click', sortProducts);
+
+        fetchProducts();
+    </script>
+</body>
+</html>

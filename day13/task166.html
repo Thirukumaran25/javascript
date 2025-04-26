@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let books = [
+            { id: 1, title: "1984", author: "George Orwell", genre: "Dystopian" },
+            { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", genre: "Fiction" },
+            { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald", genre: "Classic" }
+        ];
+
+        function findBookByTitle(title) {
+            const book = books.find(b => b.title === title);
+            return book ? book : "Book not found.";
+        }
+        const titleToFind = "To Kill a Mockingbird";
+        const foundBook = findBookByTitle(titleToFind);
+
+        console.log(foundBook);
+    </script>
+</body>
+</html>

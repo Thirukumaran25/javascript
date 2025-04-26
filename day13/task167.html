@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Object to JSON Array</title>
+</head>
+<body>
+    <h1>Manage Books</h1>
+    <button id="addBookBtn">Add Book</button>
+    <pre id="output"></pre>
+
+    <script>
+    
+        let books = [
+            { id: 1, title: "1984", author: "George Orwell" },
+            { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee" }
+        ];
+        function addBook(newBook) {
+            books.push(newBook);
+            displayBooks();
+        }
+        function displayBooks() {
+            const output = document.getElementById('output');
+            output.textContent = JSON.stringify(books, null, 2);
+        }
+        document.getElementById('addBookBtn').addEventListener('click', () => {
+            const newBook = { id: books.length + 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald" };
+            addBook(newBook);
+        });
+
+        displayBooks();
+    </script>
+</body>
+</html>

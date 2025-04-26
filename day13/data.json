@@ -1,0 +1,25 @@
+[{
+    "name":"cooker",
+    "price":"500",
+    "category":"Kitchen appliance"
+},
+{
+    "name":"spoon",
+    "price":"50",
+    "category":"Kitchen appliance"
+},
+{
+    "name":"knif",
+    "price":"200",
+    "category":"Kitchen appliance"
+},
+{
+    "name":"stove",
+    "price":"1500",
+    "category":"Kitchen appliance"
+},
+{
+    "name":"clock",
+    "price":"300",
+    "category":"home decore"
+}]

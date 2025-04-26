@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search App</title>
+</head>
+<body>
+    <h1>Movie Search App</h1>
+    <input type="text" id="movieInput" placeholder="Enter movie title">
+    <button id="search" onclick="search()">Search</button>
+    <div id="movieDetails"></div>
+
+    <script>
+        async function fetchData() {
+                let response = await fetch("/day13/data2.json");
+                movieData = await response.json();
+                console.log(movieData);
+        }
+
+        function search() {
+            const movieTitle = document.getElementById('movieInput').value;
+            if (movieTitle.value === movieData.value) {
+                document.getElementById('movieDetails').innerHTML = `
+                    <h2>${movieData.title}</h2>
+                    <p>${movieData.year}</p>
+                    <p>${movieData.plot}</p>
+                `;
+            } else {
+                document.getElementById('movieDetails').innerHTML = `<p>Movie not found.</p>`;
+            }
+        }
+        fetchData();
+    </script>
+</body>
+</html>

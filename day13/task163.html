@@ -1,0 +1,28 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+    const data = [
+            { id: 1, name: 'Alice' },
+            { id: 2, name: 'Bob' },
+            { id: 3, name: 'Charlie' }
+        ];
+
+        const updateId = 2;
+        const updatedName = 'Robert';
+
+        const updatedData = data.map(item => 
+            item.id === updateId ? { ...item, name: updatedName } : item
+        );
+
+        console.log(updatedData);
+    </script>
+</script>
+</body>
+</html>
