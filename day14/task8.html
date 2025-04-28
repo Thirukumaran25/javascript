@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Comments</h1>
+    <ul id="commentsList"></ul>
+    <button id="fetchCommentsBtn">Fetch Comments</button>
+
+    <script>
+        document.getElementById('fetchCommentsBtn').addEventListener('click', function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/comments', true);
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const comments = JSON.parse(xhr.responseText);
+                    displayComments(comments);
+                } else {
+                    console.error('Error fetching comments:', xhr.statusText);
+                    document.getElementById('commentsList').innerHTML = '<li>Error fetching comments.</li>';
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Request failed');
+                document.getElementById('commentsList').innerHTML = '<li>Error fetching comments.</li>';
+            };
+
+            xhr.send();
+        });
+
+        function displayComments(comments) {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = '';
+            comments.forEach(comment => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${comment.name}</strong> (${comment.email}): <p>${comment.body}</p>`;
+                commentsList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>

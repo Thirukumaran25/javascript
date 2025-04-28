@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Currency Exchange Rates</h1>
+    <button id="fetchRatesBtn">Fetch Exchange Rates</button>
+    <table id="ratesTable">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Exchange Rate</th>
+            </tr>
+        </thead>
+        <tbody id="ratesBody"></tbody>
+    </table>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+        const baseCurrency = 'USD'; 
+
+        document.getElementById('fetchRatesBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`https://api.apilayer.com/exchangerates_data/latest?base=${baseCurrency}`, {
+                    headers: {
+                        'apikey': apiKey
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch exchange rates');
+                }
+
+                const data = await response.json();
+                displayExchangeRates(data.rates);
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+                document.getElementById('ratesBody').innerHTML = '<tr><td colspan="2">Error fetching exchange rates.</td></tr>';
+            }
+        });
+
+        function displayExchangeRates(rates) {
+            const ratesBody = document.getElementById('ratesBody');
+            ratesBody.innerHTML = '';
+
+            for (const [currency, rate] of Object.entries(rates)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${currency}</td><td>${rate}</td>`;
+                ratesBody.appendChild(row);
+            }
+        }
+    </script>
+</body>
+</html>

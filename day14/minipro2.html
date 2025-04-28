@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Air Quality Checker</title>
+</head>
+<body>
+    <h1>Real-Time Air Quality Checker</h1>
+    <label for="citySelect">Select a city:</label>
+    <select id="citySelect">
+        <option value="New York">New York</option>
+        <option value="Los Angeles">Los Angeles</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Houston">Houston</option>
+        <option value="Phoenix">Phoenix</option>
+    </select>
+    <button id="checkAQIBtn">Check AQI</button>
+    <div id="result"></div>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+
+        document.getElementById('checkAQIBtn').addEventListener('click', async () => {
+            const city = document.getElementById('citySelect').value;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Fetching data...'; // Show loading message
+
+            try {
+                // Fetch the city's coordinates
+                const geoResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+                if (!geoResponse.ok) {
+                    throw new Error('Failed to fetch city data');
+                }
+                const geoData = await geoResponse.json();
+                const { lat, lon } = geoData.coord;
+
+                // Fetch the air quality data using the coordinates
+                const aqiResponse = await fetch(`https://api.openweathermap.org/data/2.5/air-pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+                if (!aqiResponse.ok) {
+                    throw new Error('Failed to fetch AQI data');
+                }
+                const aqiData = await aqiResponse.json();
+
+                // Display the AQI and pollutants
+                const aqi = aqiData.list[0].main.aqi;
+                const pollutants = aqiData.list[0].components;
+                const healthAdvice = getHealthAdvice(aqi);
+
+                resultDiv.innerHTML = `
+                    <h2>AQI for ${city}: ${aqi}</h2>
+                    <p>Pollutants Levels:</p>
+                    <ul>
+                        <li>CO: ${pollutants.co} µg/m³</li>
+                        <li>NO: ${pollutants.no} µg/m³</li>
+                        <li>NO₂: ${pollutants.no2} µg/m³</li>
+                        <li>O₃: ${pollutants.o3} µg/m³</li>
+                        <li>SO₂: ${pollutants.so2} µg/m³</li>
+                        <li>PM₁₀: ${pollutants.pm10} µg/m³</li>
+                        <li>PM₂.₅: ${pollutants.pm2_5} µg/m³</li>
+                        <li>NH₃: ${pollutants.nh3} µg/m³</li>
+                    </ul>
+                    <p>${healthAdvice}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                resultDiv.innerHTML = 'Error fetching data. Please try again.';
+            }
+        });
+
+        function getHealthAdvice(aqi) {
+            switch (aqi) {
+                case 1:
+                    return "Good: Air quality is considered satisfactory, and air pollution poses little or no risk.";
+                case 2:
+                    return "Moderate: Air quality is acceptable; however, for some pollutants, there may be a moderate health concern for a very small number of people.";
+                case 3:
+                    return "Unhealthy for Sensitive Groups: Members of sensitive groups may experience health effects. The general public is not likely to be affected.";
+                case 4:
+                    return "Unhealthy: Everyone may begin to experience health effects; members of sensitive groups may experience more.";
+            }
+        }
+        </script>
+    </body>
+</html>  

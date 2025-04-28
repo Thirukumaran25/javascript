@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <button id="fetchImagesBtn">Fetch Images</button>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        const accessKey = 'YOUR_UNSPLASH_ACCESS_KEY'; // Replace with your Unsplash API key
+
+        document.getElementById('fetchImagesBtn').addEventListener('click', async () => {
+            const galleryDiv = document.getElementById('gallery');
+            galleryDiv.innerHTML = ''; // Clear previous images
+
+            try {
+                const response = await fetch(`https://api.unsplash.com/photos/random?count=10&client_id=${accessKey}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                const images = await response.json();
+                displayImages(images);
+            } catch (error) {
+                galleryDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        });
+
+        function displayImages(images) {
+            const galleryDiv = document.getElementById('gallery');
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image.urls.small;
+                imgElement.alt = image.alt_description || 'Image';
+                galleryDiv.appendChild(imgElement);
+            });
+        }
+    </script>
+</body>
+</html>
