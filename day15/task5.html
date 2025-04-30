@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+  function checkIfNumber(input) {
+    if (typeof input !== 'number' || isNaN(input)) {
+        throw new TypeError('Input must be a number');
+    }
+    return true;
+}
+try {
+    checkIfNumber(42);
+    console.log('Input is a valid number.');
+
+    checkIfNumber('Hello'); 
+} catch (error) {
+    if (error instanceof TypeError) {
+        console.error(error.message); 
+    } else {
+        console.error('An unexpected error occurred:', error);
+    }
+}
+    </script>
+</body>
+</html>

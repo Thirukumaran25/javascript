@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function recursiveFunction(count, limit) {
+    if (count > limit) {
+        console.error("Recursion limit reached. Stopping further calls.");
+        return; 
+    }
+
+    console.log(`Recursion count: ${count}`);
+
+    recursiveFunction(count + 1, limit);
+}
+
+const callLimit = 5; 
+recursiveFunction(1, callLimit);
+    </script>
+</body>
+</html>

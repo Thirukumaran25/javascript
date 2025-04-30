@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function checkAge(age) {
+    try {
+        console.log("Checking age...");
+        if (typeof age !== 'number') {
+            throw new TypeError("Input must be a number.");
+        }
+        try {
+            if (age < 0) {
+                throw new RangeError("Age cannot be negative.");
+            } else if (age < 18) {
+                throw new Error("You must be at least 18 years old.");
+            }
+
+            console.log("Access granted. You are old enough.");
+        } catch (innerError) {
+            console.error("Inner error caught:", innerError.message);
+        }
+
+    } catch (outerError) {
+        console.error("Outer error caught:", outerError.message);
+    }
+}
+checkAge("twenty"); 
+checkAge(-5);       
+checkAge(15);     
+checkAge(20); 
+    </script>
+</body>
+</html>

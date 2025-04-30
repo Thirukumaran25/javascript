@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function logApiResponse() {
+    try {
+        console.log(`Making API call to: ${url}`);
+        
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const errorMessage = `Error: ${response.status} - ${response.statusText}`;
+            console.error(errorMessage);
+            logErrorToLocalStorage(errorMessage);
+            return;
+        }
+        const data = await response.json();
+        console.log("API Response:", data);
+        logSuccessToLocalStorage(data);
+
+    } catch (error) {
+        console.error("Network error:", error.message);
+        logErrorToLocalStorage(error.message);
+    }
+}
+
+function logSuccessToLocalStorage(data) {
+    const successLog = {
+        data: data,
+        timestamp: new Date().toISOString()
+    };
+    const existingSuccessLogs = JSON.parse(localStorage.getItem('successLogs')) || [];
+    existingSuccessLogs.push(successLog);
+    localStorage.setItem('successLogs', JSON.stringify(existingSuccessLogs));
+}
+function logErrorToLocalStorage(errorMessage) {
+    const errorLog = {
+        message: errorMessage,
+        timestamp: new Date().toISOString()
+    };
+
+    const existingErrorLogs = JSON.parse(localStorage.getItem('errorLogs')) || [];
+    existingErrorLogs.push(errorLog);
+    localStorage.setItem('errorLogs', JSON.stringify(existingErrorLogs));
+}
+
+const apiUrl = "https://jsonplaceholder.typicode.com/posts/1"; // A valid API endpoint
+logApiResponse(apiUrl);
+
+const invalidApiUrl = "https://invalid-url.example.com";
+logApiResponse(invalidApiUrl);
+    </script>
+</body>
+</html>

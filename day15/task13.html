@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function logError(errorMessage) {
+    const errorLog = {
+        message: errorMessage,
+        timestamp: new Date().toISOString()
+    };
+
+    const existingLogs = JSON.parse(localStorage.getItem('errorLogs')) || [];
+
+    existingLogs.push(errorLog);
+
+    localStorage.setItem('errorLogs', JSON.stringify(existingLogs));
+}
+
+function displayErrorLogs() {
+    const logs = JSON.parse(localStorage.getItem('errorLogs')) || [];
+    
+    if (logs.length === 0) {
+        console.log("No error logs found.");
+        return;
+    }
+
+    console.log("Error Logs:");
+    logs.forEach((log, index) => {
+        console.log(`${index + 1}: ${log.message} (Logged at: ${log.timestamp})`);
+    });
+}
+
+function riskyOperation() {
+    try {
+        throw new Error("Something went wrong during the risky operation!");
+    } catch (error) {
+        
+        logError(error.message);
+    }
+}
+
+
+riskyOperation();
+riskyOperation(); 
+
+displayErrorLogs();
+    </script>
+</body>
+</html>
